@@ -1,5 +1,4 @@
-@echo off
-# This is a PowerShell script for Windows installation. Save as install.ps1 and run with PowerShell.
+# This is a PowerShell script for Windows installation.
 
 # Set variables
 $APP_DIR = "$env:USERPROFILE\.ssh_router"
@@ -22,7 +21,7 @@ $BIN_PATH = "$env:USERPROFILE\.local\bin\s.bat"  # Create a batch file for launc
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.local\bin"
 Set-Content -Path $BIN_PATH -Value "@echo off`ncall $APP_DIR\venv\Scripts\activate.bat`npython $APP_DIR\app.py"
 
-# Add to PATH if not already (user must run this in their profile or session)
+# Add to PATH if not already
 $PATH_UPDATED = [Environment]::GetEnvironmentVariable("PATH", "User") + ";" + "$env:USERPROFILE\.local\bin"
 [Environment]::SetEnvironmentVariable("PATH", $PATH_UPDATED, "User")
 
