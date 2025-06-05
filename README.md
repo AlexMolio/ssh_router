@@ -10,6 +10,19 @@ This is a simple Terminal User Interface (TUI) application built with Textual fo
 - **One-Command Launch**: Run the app with a simple command after installation.
 
 ## Installation
+
+### Windows
+To install on Windows, ensure you have PowerShell and Python installed. Use this one-liner command to download and run the script automatically:
+```
+iwr -Uri 'https://raw.githubusercontent.com/AlexMolio/ssh_router/main/install.ps1' -OutFile 'install.ps1'; powershell -ExecutionPolicy Bypass -File .\install.ps1
+```
+**Note:** This is a single command line; the semicolon separates steps for sequential execution. Run it in PowerShell as administrator for security and compatibility.
+
+Alternatively, manually download or place the install.ps1 script in your project directory and run it as administrator:
+```
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+```
+
 To install and set up the app with a single command, run the following in your terminal:
 
 ```
