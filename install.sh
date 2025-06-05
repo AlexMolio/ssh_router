@@ -3,7 +3,7 @@
 set -e
 
 APP_DIR="$HOME/.ssh_router"
-SCRIPT_URL="https://raw.githubusercontent.com/YOU/ssh-router/main/ssh_menu.py"
+SCRIPT_URL="https://raw.githubusercontent.com/AlexMolio/ssh_router/main/app.py"
 
 # 1. Создание директории
 mkdir -p "$APP_DIR"

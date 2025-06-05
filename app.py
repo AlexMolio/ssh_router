@@ -104,7 +104,7 @@ class SSHSelectorApp(App):
     }
     Button {
         width: 20%;
-        margin-left: 1;
+        margin-left: 0;
         border: round white;
         background: transparent;
     }
