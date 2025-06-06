@@ -1,6 +1,8 @@
 from pathlib import Path
 import re
 import subprocess
+import os
+import platform
 
 from textual.app import App, ComposeResult
 from textual.widgets import ListView, ListItem, Label, Input, Button
@@ -134,7 +136,18 @@ class SSHSelectorApp(App):
     async def on_list_view_selected(self, message: ListView.Selected) -> None:
         host = message.item.query_one(Label).renderable
         await self.action_quit()
-        subprocess.Popen(["ssh", host])
+        # os.execvp("ssh", ["ssh", host])
+        # subprocess.run(["ssh", host])
+        # subprocess.Popen(["ssh", host])
+
+        if platform.system() == "Windows":
+            # Windows Terminal (если установлен)
+            subprocess.run(["wt", "ssh", host], shell=True)
+        elif platform.system() == "Darwin":
+            # macOS – Terminal.app через AppleScript
+            os.system(f'''osascript -e 'tell application "Terminal" to do script "ssh {host}"' ''')
+        else:
+            print("Эта ОС пока не поддерживается этим скриптом")
 
     async def on_mount(self) -> None:
         search_input = self.query_one("#search-input")
