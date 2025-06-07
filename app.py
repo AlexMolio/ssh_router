@@ -141,8 +141,12 @@ class SSHSelectorApp(App):
         # subprocess.Popen(["ssh", host])
 
         if platform.system() == "Windows":
-            # Windows Terminal (если установлен)
-            subprocess.run(["powershell", "ssh", host], shell=True)
+            try:
+                # Предпочитаем Windows Terminal
+                subprocess.run(f'start wt ssh {host}', shell=True)
+            except FileNotFoundError:
+                # Если wt нет — откроем обычный cmd
+                subprocess.run(f'start cmd /k ssh {host}', shell=True)
         elif platform.system() == "Darwin":
             # macOS – Terminal.app через AppleScript
             os.system(f'''osascript -e 'tell application "Terminal" to do script "ssh {host}"' ''')
