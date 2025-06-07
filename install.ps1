@@ -7,8 +7,14 @@ $SCRIPT_URL = "https://raw.githubusercontent.com/AlexMolio/ssh_router/main/app.p
 # 1. Create directory
 New-Item -ItemType Directory -Force -Path $APP_DIR
 
-# 2. Download script
-Invoke-WebRequest -Uri $SCRIPT_URL -OutFile "$APP_DIR\app.py"
+# 2. Download or copy script
+if (Test-Path "./app.py") {
+    Copy-Item "./app.py" "$APP_DIR\app.py"
+    Write-Output "Local app.py found. Copying to $APP_DIR..."
+} else {
+    Invoke-WebRequest -Uri $SCRIPT_URL -OutFile "$APP_DIR\app.py"
+    Write-Output "Local app.py not found. Downloading from URL..."
+}
 
 # 3. Create virtual environment and install dependencies
 python -m venv "$APP_DIR\venv"

@@ -136,13 +136,8 @@ class SSHSelectorApp(App):
     async def on_list_view_selected(self, message: ListView.Selected) -> None:
         host = message.item.query_one(Label).renderable
         await self.action_quit()
-        # os.execvp("ssh", ["ssh", host])
-        # subprocess.run(["ssh", host])
-        # subprocess.Popen(["ssh", host])
 
         if platform.system() == "Windows":
-            # Windows Terminal (если установлен)
-            # subprocess.run(["powershell" , "-NoExit", "ssh", host], shell=True)
             subprocess.run(f'start cmd /k ssh {host}', shell=True)
         elif platform.system() == "Darwin":
             # macOS – Terminal.app через AppleScript
