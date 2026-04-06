@@ -134,16 +134,27 @@ class SSHSelectorApp(App):
             list_view.append(ListItem(Label(host)))
 
     async def on_list_view_selected(self, message: ListView.Selected) -> None:
-        host = message.item.query_one(Label).renderable
+        host = message.item.name  # clean & reliable
         await self.action_quit()
 
         if platform.system() == "Windows":
             subprocess.run(f'start cmd /k ssh {host}', shell=True)
         elif platform.system() == "Darwin":
-            # macOS – Terminal.app через AppleScript
             os.system(f'''osascript -e 'tell application "Terminal" to do script "ssh {host}"' ''')
         else:
             print("Эта ОС пока не поддерживается этим скриптом")
+
+    # async def on_list_view_selected(self, message: ListView.Selected) -> None:
+    #     host = message.item.query_one(Label).renderable
+    #     await self.action_quit()
+
+    #     if platform.system() == "Windows":
+    #         subprocess.run(f'start cmd /k ssh {host}', shell=True)
+    #     elif platform.system() == "Darwin":
+    #         # macOS – Terminal.app через AppleScript
+    #         os.system(f'''osascript -e 'tell application "Terminal" to do script "ssh {host}"' ''')
+    #     else:
+    #         print("Эта ОС пока не поддерживается этим скриптом")
 
     async def on_mount(self) -> None:
         search_input = self.query_one("#search-input")
