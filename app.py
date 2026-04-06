@@ -121,7 +121,8 @@ class SSHSelectorApp(App):
             yield Input(placeholder="Search hosts...", id="search-input")
             yield Button("Add Host", id="add-host-button")
         hosts = get_ssh_hosts(SSH_CONFIG_PATH)
-        items = [ListItem(Label(host)) for host in hosts]
+        # items = [ListItem(Label(host)) for host in hosts]
+        items = [ListItem(Label(host), name=host) for host in hosts]
         yield ListView(*items, id="host-list")
 
     async def on_input_changed(self, event: Input.Changed) -> None:
@@ -131,7 +132,8 @@ class SSHSelectorApp(App):
         list_view = self.query_one(ListView)
         list_view.clear()
         for host in filtered_hosts:
-            list_view.append(ListItem(Label(host)))
+            # list_view.append(ListItem(Label(host)))
+            list_view.append(ListItem(Label(host), name=host))
 
     async def on_list_view_selected(self, message: ListView.Selected) -> None:
         host = message.item.name  # clean & reliable
@@ -190,7 +192,8 @@ class SSHSelectorApp(App):
         hosts = get_ssh_hosts(SSH_CONFIG_PATH)
         list_view.clear()
         for host in hosts:
-            list_view.append(ListItem(Label(host)))
+            # list_view.append(ListItem(Label(host)))
+            list_view.append(ListItem(Label(host), name=host))
 
 if __name__ == "__main__":
     SSHSelectorApp().run()
